@@ -219,7 +219,7 @@
 
             <TextView
                 android:id="@+id/actor_1_name"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/actor_1_name"
@@ -231,7 +231,7 @@
 
             <TextView
                 android:id="@+id/actor_2_name"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/actor_2_name"
@@ -243,7 +243,7 @@
 
             <TextView
                 android:id="@+id/actor_3_name"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/actor_3_name"
@@ -255,7 +255,7 @@
 
             <TextView
                 android:id="@+id/actor_4_name"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/actor_4_name"
