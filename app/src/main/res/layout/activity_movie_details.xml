@@ -169,41 +169,51 @@
 
             <ImageView
                 android:id="@+id/actor_1_ph"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="7dp"
                 android:src="@drawable/actor_1"
+                app:layout_constraintBottom_toBottomOf="@id/ph_horizontal_barrier"
+                app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cast" />
 
             <ImageView
                 android:id="@+id/actor_2_ph"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="7dp"
                 android:src="@drawable/actor_2"
+                app:layout_constraintBottom_toBottomOf="@id/ph_horizontal_barrier"
+                app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintStart_toEndOf="@id/actor_1_ph"
                 app:layout_constraintTop_toBottomOf="@id/cast" />
 
             <ImageView
                 android:id="@+id/actor_3_ph"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="7dp"
                 android:src="@drawable/actor_3"
+                app:layout_constraintBottom_toBottomOf="@id/ph_horizontal_barrier"
+                app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintStart_toEndOf="@id/actor_2_ph"
                 app:layout_constraintTop_toBottomOf="@id/cast" />
 
             <ImageView
                 android:id="@+id/actor_4_ph"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="7dp"
+                android:layout_marginEnd="16dp"
                 android:src="@drawable/actor_4"
+                app:layout_constraintBottom_toBottomOf="@id/ph_horizontal_barrier"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/actor_3_ph"
                 app:layout_constraintTop_toBottomOf="@id/cast" />
 
@@ -254,6 +264,14 @@
                 app:layout_constraintEnd_toEndOf="@id/actor_4_ph"
                 app:layout_constraintStart_toStartOf="@id/actor_4_ph"
                 app:layout_constraintTop_toBottomOf="@id/actor_4_ph" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/ph_horizontal_barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="677dp"
+                app:barrierDirection="top"
+                app:layout_constraintTop_toBottomOf="@id/actor_1_ph" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
