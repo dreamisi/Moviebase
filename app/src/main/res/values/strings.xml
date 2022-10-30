@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">hometask</string>
+    <string name="app_name">MovieBase</string>
     <string name="film_name">Avengers: \nEnd Game</string>
     <string name="age_limit">13+</string>
     <string name="film_genre">Action, Adventure, Fantasy</string>

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'ru.aproject.hometask'
+    namespace 'com.dreamisi.moviebase'
     compileSdk 33
 
     defaultConfig {
-        applicationId "ru.aproject.hometask"
+        applicationId "com.dreamisi.moviebase"
         minSdk 21
         targetSdk 33
         versionCode 1

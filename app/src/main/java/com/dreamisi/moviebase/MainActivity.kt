@@ -1,4 +1,4 @@
-package ru.aproject.hometask
+package com.dreamisi.moviebase
 
 import android.content.Intent
 import android.os.Bundle

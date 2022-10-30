@@ -1,4 +1,4 @@
-package ru.aproject.hometask
+package com.dreamisi.moviebase
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
