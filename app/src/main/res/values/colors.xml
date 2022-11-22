@@ -11,7 +11,7 @@
     <color name="film_genre">#FF3466</color>
     <color name="reviews">#6D6D80</color>
     <color name="actor_name">#D8D8D8</color>
-    <color name="scroll_view_2activity">#191926</color>
+    <color name="movies_list_fragment">#191926</color>
     <color name="first_activity_background">#DAA520</color>
     <color name="film_mins">#565665</color>
 </resources>
