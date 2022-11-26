@@ -20,11 +20,14 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+
+    override fun onStart() {
+        super.onStart()
+        val context: Context? = context
         if (context is FragmentMoviesListListener) {
             fragmentMoviesListListener = context
         }
+
     }
 
     override fun onPause() {
