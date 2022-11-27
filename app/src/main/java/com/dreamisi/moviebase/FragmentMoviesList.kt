@@ -1,6 +1,5 @@
 package com.dreamisi.moviebase
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -23,10 +22,7 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
 
     override fun onStart() {
         super.onStart()
-        val context: Context? = context
-        if (context is FragmentMoviesListListener) {
-            fragmentMoviesListListener = context
-        }
+        (context as? FragmentMoviesListListener).let { fragmentMoviesListListener = it }
 
     }
 
