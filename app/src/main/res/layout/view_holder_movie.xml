@@ -37,7 +37,7 @@
         tools:ignore="contentDescription" />
 
     <ImageView
-        android:id="@+id/like"
+        android:id="@+id/favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
@@ -48,6 +48,7 @@
         tools:ignore="contentDescription" />
 
     <TextView
+        android:id="@+id/film_genre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
@@ -146,6 +147,7 @@
         app:layout_constraintTop_toBottomOf="@id/movie_image" />
 
     <TextView
+        android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

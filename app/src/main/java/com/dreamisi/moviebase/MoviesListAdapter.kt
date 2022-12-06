@@ -1,0 +1,45 @@
+package com.dreamisi.moviebase
+
+import android.content.Context
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import data.models.Movie
+
+class MoviesListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var movies = listOf<Movie>()
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        TODO("Not yet implemented")
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getItemCount(): Int = movies.size
+
+    fun bindMovies(newMovies: List<Movie>) {
+        movies = newMovies
+    }
+
+    private class MoviesListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val image: ImageView = itemView.findViewById(R.id.movie_image)
+        private val name: TextView = itemView.findViewById(R.id.film_name)
+        private val duration: TextView = itemView.findViewById(R.id.duration)
+        private val favorite: ImageView = itemView.findViewById(R.id.favorite)
+        private val genre: TextView = itemView.findViewById(R.id.film_genre)
+        private val reviews: TextView = itemView.findViewById(R.id.reviews)
+        private val pg: ImageView = itemView.findViewById(R.id.cast)
+        private val rating_1_st: ImageView = itemView.findViewById(R.id.first_star)
+        private val rating_2_st: ImageView = itemView.findViewById(R.id.second_star)
+        private val rating_3_st: ImageView = itemView.findViewById(R.id.third_star)
+        private val rating_4_st: ImageView = itemView.findViewById(R.id.fourth_star)
+        private val rating_5_st: ImageView = itemView.findViewById(R.id.fifth_star)
+
+    }
+}
