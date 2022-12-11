@@ -53,10 +53,10 @@ class MoviesListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun onBind(movie: Movie) {
             image.setImageResource(movie.image)
             name.text = movie.name
-            duration.text = movie.duration
+            duration.text = movie.duration + " MIN"
             //favorite.visibility =
             genre.text = movie.genre
-            reviews.text = movie.reviews
+            reviews.text = movie.reviews + " reviews"
             pg.setImageResource(movie.pg)
 
 
