@@ -21,7 +21,7 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
         recycler = view.findViewById(R.id.movies_cards)
         recycler?.adapter = MoviesListAdapter()
         recycler?.layoutManager = GridLayoutManager(requireContext(),2)
-        view.findViewById<ImageView>(R.id.movie_image)?.apply {//нужно переписать этот код, кликлистнере ссылается на нулевой объект теперь
+        view.findViewById<ImageView>(R.id.movie_image)?.apply {//нужно переписать этот код, кликлистенер ссылается на нулевой объект теперь
             setOnClickListener {
                 fragmentMoviesListListener?.onFilmCardClicked()
             }
