@@ -1,6 +1,8 @@
 package com.dreamisi.moviebase
 
 import android.content.Context
+import android.graphics.drawable.Drawable
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,11 +16,17 @@ class MoviesListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("Not yet implemented")
+        return MoviesListViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.view_holder_movie, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        when (holder) {
+            is MoviesListViewHolder -> {
+                holder.onBind(movies[position])
+            }
+        }
     }
 
     override fun getItemCount(): Int = movies.size
@@ -31,15 +39,28 @@ class MoviesListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val image: ImageView = itemView.findViewById(R.id.movie_image)
         private val name: TextView = itemView.findViewById(R.id.film_name)
         private val duration: TextView = itemView.findViewById(R.id.duration)
-        private val favorite: ImageView = itemView.findViewById(R.id.favorite)
+
+        //private val favorite: ImageView = itemView.findViewById(R.id.favorite)
         private val genre: TextView = itemView.findViewById(R.id.film_genre)
         private val reviews: TextView = itemView.findViewById(R.id.reviews)
         private val pg: ImageView = itemView.findViewById(R.id.cast)
-        private val rating_1_st: ImageView = itemView.findViewById(R.id.first_star)
-        private val rating_2_st: ImageView = itemView.findViewById(R.id.second_star)
-        private val rating_3_st: ImageView = itemView.findViewById(R.id.third_star)
-        private val rating_4_st: ImageView = itemView.findViewById(R.id.fourth_star)
-        private val rating_5_st: ImageView = itemView.findViewById(R.id.fifth_star)
+        //private val rating_1_st: ImageView = itemView.findViewById(R.id.first_star)
+        //private val rating_2_st: ImageView = itemView.findViewById(R.id.second_star)
+        //private val rating_3_st: ImageView = itemView.findViewById(R.id.third_star)
+        //private val rating_4_st: ImageView = itemView.findViewById(R.id.fourth_star)
+        //private val rating_5_st: ImageView = itemView.findViewById(R.id.fifth_star)
+
+        fun onBind(movie: Movie) {
+            image.setImageResource(movie.image)
+            name.text = movie.name
+            duration.text = movie.duration
+            //favorite.visibility =
+            genre.text = movie.genre
+            reviews.text = movie.reviews
+            pg.setImageResource(movie.pg)
+
+
+        }
 
     }
 }

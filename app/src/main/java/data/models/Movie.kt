@@ -8,7 +8,7 @@ data class Movie(
     val rating: Int,
     val favorite: Boolean,
     val pg: Int,
-    val image: String
+    val image: Int
 
 
 
