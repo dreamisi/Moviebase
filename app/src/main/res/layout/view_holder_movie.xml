@@ -76,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:src="@drawable/red_star_movies_list"
+        android:src="@drawable/gray_star_movies_list"
         app:layout_constraintBottom_toBottomOf="@id/stars_barrier"
         app:layout_constraintEnd_toStartOf="@id/second_star_movies_list"
         app:layout_constraintStart_toStartOf="@id/movie_image"
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:src="@drawable/red_star_movies_list"
+        android:src="@drawable/gray_star_movies_list"
         app:layout_constraintBottom_toBottomOf="@id/stars_barrier"
         app:layout_constraintStart_toEndOf="@id/first_star_movies_list"
         tools:ignore="contentDescription" />
@@ -97,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:src="@drawable/red_star_movies_list"
+        android:src="@drawable/gray_star_movies_list"
         app:layout_constraintBottom_toBottomOf="@id/stars_barrier"
         app:layout_constraintStart_toEndOf="@id/second_star_movies_list"
         tools:ignore="contentDescription" />
@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:src="@drawable/red_star_movies_list"
+        android:src="@drawable/gray_star_movies_list"
         app:layout_constraintBottom_toBottomOf="@id/stars_barrier"
         app:layout_constraintStart_toEndOf="@id/third_star_movies_list"
         tools:ignore="contentDescription" />
