@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView
 import domain.ActorsDataSource
 
@@ -13,7 +14,7 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
         super.onViewCreated(view, savedInstanceState)
         recycler = view.findViewById(R.id.actor_cards)
         recycler?.adapter = ActorsListAdapter()
-        recycler?.layoutManager = LinearLayoutManager(requireContext())
+        recycler?.layoutManager = LinearLayoutManager(requireContext(),HORIZONTAL,false)
     }
 
     override fun onStart() {
