@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import data.models.Movie
 
-class MoviesListAdapter(val itemClickListener: OnItemClickListener) :
+class MoviesListAdapter() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var movies = listOf<Movie>()
@@ -23,7 +23,7 @@ class MoviesListAdapter(val itemClickListener: OnItemClickListener) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MoviesListViewHolder -> {
-                holder.onBind(movies[position], itemClickListener)
+                holder.onBind(movies[position])
             }
         }
     }
@@ -49,10 +49,7 @@ class MoviesListAdapter(val itemClickListener: OnItemClickListener) :
         private val rating_4_st: ImageView = itemView.findViewById(R.id.fourth_star_movies_list)
         private val rating_5_st: ImageView = itemView.findViewById(R.id.fifth_star_movies_list)
 
-        fun onBind(movie: Movie, clickListener: OnItemClickListener) {
-            itemView.setOnClickListener {
-                clickListener.onItemClicked(movie)
-            }
+        fun onBind(movie: Movie) {
 
             image.setImageResource(movie.image)
             name.text = movie.name
@@ -95,7 +92,4 @@ class MoviesListAdapter(val itemClickListener: OnItemClickListener) :
 
     }
 
-    interface OnItemClickListener {
-        fun onItemClicked(movie: Movie)
-    }
 }
