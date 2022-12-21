@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
 
-class MainActivity : AppCompatActivity(), FragmentMoviesList.FragmentMoviesListListener {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +18,5 @@ class MainActivity : AppCompatActivity(), FragmentMoviesList.FragmentMoviesListL
 
     }
 
-    override fun onFilmCardClicked() {
-        supportFragmentManager.beginTransaction().addToBackStack(null)
-            .replace(R.id.main_container, FragmentMoviesDetails()).commit()
-    }
+
 }

@@ -1,56 +1,54 @@
 package com.dreamisi.moviebase
 
+
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import data.models.Movie
 import domain.MoviesDataSource
 
-class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
+
+class FragmentMoviesList : Fragment(R.layout.fragment_movies_list),
+    MoviesListAdapter.OnItemClickListener {
 
     private var recycler: RecyclerView? = null
-
-    private var fragmentMoviesListListener: FragmentMoviesListListener? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recycler = view.findViewById(R.id.movies_cards)
-        recycler?.adapter = MoviesListAdapter()
-        recycler?.layoutManager = GridLayoutManager(requireContext(),2)
-        view.findViewById<ImageView>(R.id.movie_image)?.apply {//нужно переписать этот код, кликлистенер ссылается на нулевой объект теперь
-            setOnClickListener {
-                fragmentMoviesListListener?.onFilmCardClicked()
-            }
+        recycler?.adapter = MoviesListAdapter(this)
+        recycler?.layoutManager = GridLayoutManager(requireContext(), 2)
         }
-    }
+
 
 
     override fun onStart() {
         super.onStart()
         updateData()
-        (context as? FragmentMoviesListListener).let { fragmentMoviesListListener = it }
 
     }
 
-    private fun updateData(){
+    private fun updateData() {
         (recycler?.adapter as? MoviesListAdapter)?.apply {
             bindMovies(MoviesDataSource().getMovies())
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        fragmentMoviesListListener = null
+
+    companion object {
+        fun newInstance() = FragmentMoviesList()
     }
 
-    interface FragmentMoviesListListener {
-        fun onFilmCardClicked()
-    }
-    companion object{
-        fun newInstance() = FragmentMoviesList()
+    override fun onItemClicked(movie: Movie) {
+        Toast.makeText(
+            context,
+            "You pressed on movie card, but functional it's empty",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 
