@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import data.models.Movie
 
@@ -24,6 +25,15 @@ class MoviesListAdapter() :
         when (holder) {
             is MoviesListViewHolder -> {
                 holder.onBind(movies[position])
+                holder.itemView.setOnClickListener { v ->
+                    val activity = v!!.context as AppCompatActivity
+                    val moviesDetails = FragmentMoviesDetails()
+                    if (movies[position].name=="Avengers: End Game") {
+                        activity.supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_container, moviesDetails).addToBackStack(null)
+                            .commit()
+                    }
+                }
             }
         }
     }
