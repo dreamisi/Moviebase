@@ -8,6 +8,7 @@ class MoviesDataSource() {
     fun getMovies(): List<Movie> {
         return listOf(
             Movie(
+                "1",
                 "Avengers: End Game",
                 "137",
                 "125",
@@ -18,6 +19,7 @@ class MoviesDataSource() {
                 R.drawable.movie
             ),
             Movie(
+                "2",
                 "Tenet",
                 "97",
                 "98",
@@ -28,6 +30,7 @@ class MoviesDataSource() {
                 R.drawable.tenet
             ),
             Movie(
+                "3",
                 "Black Widow",
                 "102",
                 "38",
@@ -38,6 +41,7 @@ class MoviesDataSource() {
                 R.drawable.black_widow
             ),
             Movie(
+                "4",
                 "Wonder Woman 1984",
                 "120",
                 "74",

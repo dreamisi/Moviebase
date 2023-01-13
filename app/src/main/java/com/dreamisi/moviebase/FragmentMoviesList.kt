@@ -13,14 +13,14 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
 
     private var recycler: RecyclerView? = null
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recycler = view.findViewById(R.id.movies_cards)
-        recycler?.adapter = MoviesListAdapter()
+        recycler?.adapter = MoviesListAdapter(
+            onClick = { movieId -> onFilmCardClicked(movieId) }
+        )
         recycler?.layoutManager = GridLayoutManager(requireContext(), 2)
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -34,10 +34,12 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
         }
     }
 
-
-    companion object {
-        fun newInstance() = FragmentMoviesList()
+    private fun onFilmCardClicked(movieId: String) {
+        (requireActivity() as? FragmentMoviesListListener)?.onFilmCardClicked(movieId)
     }
 
+    interface FragmentMoviesListListener {
+        fun onFilmCardClicked(movieId: String)
+    }
 
 }

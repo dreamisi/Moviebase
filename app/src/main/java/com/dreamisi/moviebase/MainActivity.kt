@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), FragmentMoviesList.FragmentMoviesListListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,8 +15,21 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.main_container, FragmentMoviesList())
                 .commit()
         }
-
     }
 
+    override fun onFilmCardClicked(movieId: String) {
+        val fragment = when (movieId) {
+            "1" -> FragmentMoviesDetails()
+            else -> null
+        }
+
+        fragment?.apply {
+            supportFragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.main_container, this)
+                .commit()
+        }
+    }
 
 }

@@ -1,7 +1,8 @@
 package data.models
 
 data class Movie(
-    val name : String,
+    val id: String,
+    val name: String,
     val duration: String,
     val reviews: String,
     val genre: String,
@@ -9,8 +10,4 @@ data class Movie(
     val favorite: Boolean,
     val pg: Int,
     val image: Int
-
-
-
-
 )

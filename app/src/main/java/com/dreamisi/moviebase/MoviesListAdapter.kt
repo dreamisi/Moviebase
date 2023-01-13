@@ -5,19 +5,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import data.models.Movie
 
-class MoviesListAdapter() :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MoviesListAdapter(
+    private val onClick: (movieId: String) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var movies = listOf<Movie>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MoviesListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.view_holder_movie, parent, false)
+            itemView = LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.view_holder_movie, parent, false),
+            onClick = onClick,
         )
     }
 
@@ -25,15 +28,6 @@ class MoviesListAdapter() :
         when (holder) {
             is MoviesListViewHolder -> {
                 holder.onBind(movies[position])
-                holder.itemView.setOnClickListener { v ->
-                    val activity = v!!.context as AppCompatActivity
-                    val moviesDetails = FragmentMoviesDetails()
-                    if (movies[position].name=="Avengers: End Game") {
-                        activity.supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_container, moviesDetails).addToBackStack(null)
-                            .commit()
-                    }
-                }
             }
         }
     }
@@ -44,7 +38,10 @@ class MoviesListAdapter() :
         movies = newMovies
     }
 
-    private class MoviesListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private class MoviesListViewHolder(
+        itemView: View,
+        private val onClick: (movieId: String) -> Unit,
+    ) : RecyclerView.ViewHolder(itemView) {
         private val image: ImageView = itemView.findViewById(R.id.movie_image)
         private val name: TextView = itemView.findViewById(R.id.film_name_movies_list)
         private val duration: TextView = itemView.findViewById(R.id.duration)
@@ -59,8 +56,9 @@ class MoviesListAdapter() :
         private val rating_4_st: ImageView = itemView.findViewById(R.id.fourth_star_movies_list)
         private val rating_5_st: ImageView = itemView.findViewById(R.id.fifth_star_movies_list)
 
-        fun onBind(movie: Movie) {
 
+        fun onBind(movie: Movie) {
+            itemView.setOnClickListener { onClick.invoke(movie.id) }
             image.setImageResource(movie.image)
             name.text = movie.name
             duration.text = movie.duration + " MIN"
@@ -96,8 +94,6 @@ class MoviesListAdapter() :
                     rating_5_st.setImageResource(R.drawable.red_star_movies_list)
                 }
             }
-
-
         }
 
     }

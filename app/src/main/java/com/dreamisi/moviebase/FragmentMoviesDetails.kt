@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import domain.ActorsDataSource
 
 class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
+
     private var recycler: RecyclerView? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recycler = view.findViewById(R.id.actor_cards)
@@ -27,4 +29,5 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
             bindActors(ActorsDataSource().getActors())
         }
     }
+
 }
