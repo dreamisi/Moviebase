@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
 
-class MainActivity : AppCompatActivity(), FragmentMoviesList.FragmentMoviesListListener {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(), FragmentMoviesList.FragmentMoviesListL
         }
     }
 
-    override fun onFilmCardClicked(movieId: String) {
+    fun onFilmCardClicked(movieId: String) {
         val fragment = when (movieId) {
             "1" -> FragmentMoviesDetails()
             else -> null

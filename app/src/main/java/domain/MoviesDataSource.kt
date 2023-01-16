@@ -8,26 +8,26 @@ class MoviesDataSource() {
     fun getMovies(): List<Movie> {
         return listOf(
             Movie(
-                "1",
-                "Avengers: End Game",
-                "137",
-                "125",
-                "Action, Adventure, Drama",
-                4,
-                false,
-                R.drawable.pg13,
-                R.drawable.movie
+                id = "1",
+                name = "Avengers: End Game",
+                duration = "137",
+                reviews = "125",
+                genre = "Action, Adventure, Drama",
+                rating = 4,
+                favorite = false,
+                pg = R.drawable.pg13,
+                image = R.drawable.movie
             ),
             Movie(
-                "2",
-                "Tenet",
-                "97",
-                "98",
-                "Action, Sci-Fi, Thriller ",
-                5,
-                true,
-                R.drawable.pg16,
-                R.drawable.tenet
+                id = "2",
+                name = "Tenet",
+                duration = "97",
+                reviews = "98",
+                genre = "Action, Sci-Fi, Thriller ",
+                rating = 5,
+                favorite = true,
+                pg = R.drawable.pg16,
+                image = R.drawable.tenet
             ),
             Movie(
                 "3",

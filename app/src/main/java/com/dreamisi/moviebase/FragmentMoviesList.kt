@@ -35,11 +35,7 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
     }
 
     private fun onFilmCardClicked(movieId: String) {
-        (requireActivity() as? FragmentMoviesListListener)?.onFilmCardClicked(movieId)
-    }
-
-    interface FragmentMoviesListListener {
-        fun onFilmCardClicked(movieId: String)
+        (requireActivity() as? MainActivity)?.onFilmCardClicked(movieId)
     }
 
 }
