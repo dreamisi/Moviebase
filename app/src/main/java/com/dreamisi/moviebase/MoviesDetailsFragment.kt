@@ -6,19 +6,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView
-import domain.ActorsDataSource
+import com.dreamisi.moviebase.data.ActorsDataSource
 
-class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
+class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
+
     private var recycler: RecyclerView? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recycler = view.findViewById(R.id.actor_cards)
-        recycler?.adapter = ActorsListAdapter()
-        recycler?.layoutManager = LinearLayoutManager(requireContext(),HORIZONTAL,false)
-    }
-
-    override fun onStart() {
-        super.onStart()
+        recycler?.adapter = ActorsListAdapter(requireContext())
+        recycler?.layoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
         updateData()
     }
 

@@ -6,10 +6,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import domain.MoviesDataSource
+import com.dreamisi.moviebase.data.MoviesDataSource
 
 
-class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
+class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
 
     private var recycler: RecyclerView? = null
 
@@ -17,16 +17,13 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recycler = view.findViewById(R.id.movies_cards)
-        recycler?.adapter = MoviesListAdapter()
+        recycler?.adapter = MoviesListAdapter(
+            requireContext(),
+            onClick = { movieId: Int -> onFilmCardClicked(movieId) })
         recycler?.layoutManager = GridLayoutManager(requireContext(), 2)
-    }
-
-
-    override fun onStart() {
-        super.onStart()
         updateData()
-
     }
+
 
     private fun updateData() {
         (recycler?.adapter as? MoviesListAdapter)?.apply {
@@ -34,10 +31,8 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
         }
     }
 
-
-    companion object {
-        fun newInstance() = FragmentMoviesList()
+    private fun onFilmCardClicked(movieId: Int) {
+        (requireActivity() as? MainActivity)?.onFilmCardClicked(movieId)
     }
-
 
 }
