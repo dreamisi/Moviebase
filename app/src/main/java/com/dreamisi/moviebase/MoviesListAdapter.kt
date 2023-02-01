@@ -73,13 +73,13 @@ class MoviesListAdapter(
                 rating_4_st,
                 rating_5_st
             ).forEachIndexed { index, imageView ->
-                val start_index = index + 1
-                val start_res = if (start_index <= movie.rating) {
+                val startIndex = index + 1
+                val startRes = if (startIndex <= movie.rating) {
                     R.drawable.red_star_movies_list
                 } else {
                     R.drawable.gray_star_movies_list
                 }
-                imageView.setImageResource(start_res)
+                imageView.setImageResource(startRes)
             }
 
 

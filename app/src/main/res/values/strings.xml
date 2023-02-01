@@ -15,7 +15,7 @@
     <string name="film_genre_movies_list">Action, Adventure, Drama</string>
     <string name="film_name_movies_list">Avengers: End Game</string>
     <string name="film_mins">137 MIN</string>
-    <string name="MIN">%1$d MIN</string>
-    <string name="reviews">%1$s reviews</string>
+    <string name="MIN">%d MIN</string>
+    <string name="reviews">%s reviews</string>
 
 </resources>
