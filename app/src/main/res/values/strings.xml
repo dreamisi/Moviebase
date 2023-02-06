@@ -4,7 +4,7 @@
     <string name="age_limit">13+</string>
     <string name="film_genre">Action, Adventure, Fantasy</string>
     <string name="storyline">Storyline</string>
-    <string name="reviews">125 REVIEWS</string>
+    <string name="reviews_qnt">125 REVIEWS</string>
     <string name="storyline_content">After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.</string>
     <string name="cast">Cast</string>
     <string name="actor_1_name">Robert Downey Jr.</string>
@@ -15,5 +15,7 @@
     <string name="film_genre_movies_list">Action, Adventure, Drama</string>
     <string name="film_name_movies_list">Avengers: End Game</string>
     <string name="film_mins">137 MIN</string>
+    <string name="MIN">%d MIN</string>
+    <string name="reviews">%s reviews</string>
 
 </resources>
