@@ -6,12 +6,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dreamisi.moviebase.data.MoviesDataSource
+import com.android.academy.fundamentals.homework.data.JsonMovieRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
 
     private var recycler: RecyclerView? = null
+    private val scope: CoroutineScope? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +30,11 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
 
     private fun updateData() {
         (recycler?.adapter as? MoviesListAdapter)?.apply {
-            bindMovies(MoviesDataSource().getMovies())
+            //bindMovies(MoviesDataSource().getMovies())
+            val jsonMovieRepository = JsonMovieRepository(requireContext())
+            scope?.launch {
+                bindMovies(jsonMovieRepository.loadMovies())
+            }
         }
     }
 

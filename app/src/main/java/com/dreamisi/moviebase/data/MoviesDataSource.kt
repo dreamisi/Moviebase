@@ -1,13 +1,12 @@
 package com.dreamisi.moviebase.data
 
-import com.dreamisi.moviebase.R
 import com.dreamisi.moviebase.data.models.Movie
 
 class MoviesDataSource() {
 
     fun getMovies(): List<Movie> {
         return listOf(
-            Movie(
+            /*Movie(
                 id = 1,
                 name = "Avengers: End Game",
                 duration = 137,
@@ -52,6 +51,7 @@ class MoviesDataSource() {
                 image = R.drawable.wonder_woman_1984
             )
 
+        */
         )
 
     }

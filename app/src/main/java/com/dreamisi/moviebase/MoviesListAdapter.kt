@@ -56,16 +56,16 @@ class MoviesListAdapter(
 
         fun onBind(movie: Movie) {
             itemView.setOnClickListener { onClick.invoke(movie.id) }
-            image.setImageResource(movie.image)
-            name.text = movie.name
-            duration.text = itemView.context.getString(R.string.MIN, movie.duration)
-            when (movie.favorite) {
+            //image.setImageResource(movie.image)
+            name.text = movie.title
+            duration.text = itemView.context.getString(R.string.MIN, movie.runningTime)
+            when (movie.isLiked) {
                 false -> favorite.setImageResource(R.drawable.like_not_active)
                 true -> favorite.setImageResource(R.drawable.like_active)
             }
-            genre.text = movie.genre
-            reviews.text = itemView.context.getString(R.string.reviews, movie.reviews)
-            pg.setImageResource(movie.pg)
+            genre.text = movie.genres[movie.id].toString()
+            reviews.text = itemView.context.getString(R.string.reviews, movie.reviewCount)
+            //pg.setImageResource(movie.pg)
             listOf(
                 rating_1_st,
                 rating_2_st,
