@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dreamisi.moviebase.data.models.Actor
 
 class ActorsListAdapter(context: Context) :
@@ -38,7 +39,7 @@ class ActorsListAdapter(context: Context) :
         private val actorName: TextView = itemView.findViewById(R.id.actor_name)
 
         fun onBind(actor: Actor) {
-            //actorImage.setImageResource(actor.image)
+            Glide.with(itemView).load(actor.imageUrl).into(actorImage)
             actorName.text = actor.name
         }
     }

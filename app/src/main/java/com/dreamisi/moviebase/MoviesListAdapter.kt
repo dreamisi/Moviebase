@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dreamisi.moviebase.data.models.Movie
 
 class MoviesListAdapter(
@@ -40,14 +41,13 @@ class MoviesListAdapter(
         itemView: View,
         private val onClick: (movieId: Int) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
-
         private val image: ImageView = itemView.findViewById(R.id.movie_image)
         private val name: TextView = itemView.findViewById(R.id.film_name_movies_list)
         private val duration: TextView = itemView.findViewById(R.id.duration)
         private val favorite: ImageView = itemView.findViewById(R.id.favorite)
         private val genre: TextView = itemView.findViewById(R.id.film_genre)
         private val reviews: TextView = itemView.findViewById(R.id.reviews_movies_list)
-        private val pg: ImageView = itemView.findViewById(R.id.pg)
+        private val pg_text: TextView = itemView.findViewById(R.id.pg_text)
         private val rating_1_st: ImageView = itemView.findViewById(R.id.first_star_movies_list)
         private val rating_2_st: ImageView = itemView.findViewById(R.id.second_star_movies_list)
         private val rating_3_st: ImageView = itemView.findViewById(R.id.third_star_movies_list)
@@ -56,6 +56,7 @@ class MoviesListAdapter(
 
         fun onBind(movie: Movie) {
             itemView.setOnClickListener { onClick.invoke(movie.id) }
+            Glide.with(itemView).load(movie.imageUrl).into(image)
             //image.setImageResource(movie.image)
             name.text = movie.title
             duration.text = itemView.context.getString(R.string.MIN, movie.runningTime)
@@ -63,9 +64,9 @@ class MoviesListAdapter(
                 false -> favorite.setImageResource(R.drawable.like_not_active)
                 true -> favorite.setImageResource(R.drawable.like_active)
             }
-            genre.text = movie.genres[movie.id].toString()
+            genre.text = movie.genres.joinToString { it.name }
             reviews.text = itemView.context.getString(R.string.reviews, movie.reviewCount)
-            //pg.setImageResource(movie.pg)
+            pg_text.text = itemView.context.getString(R.string.pg, movie.pgAge)
             listOf(
                 rating_1_st,
                 rating_2_st,
