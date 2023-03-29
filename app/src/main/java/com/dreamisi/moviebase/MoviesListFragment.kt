@@ -7,7 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.academy.fundamentals.homework.data.JsonMovieRepository
+import com.dreamisi.moviebase.data.MovieRepositoryProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,19 +36,17 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
     private fun updateData() {
         (recycler?.adapter as? MoviesListAdapter)?.apply {
             //bindMovies(MoviesDataSource().getMovies())
-            (requireActivity() as? MainActivity).apply {
-                val jsonMovieRepository = JsonMovieRepository(requireContext())
-                Log.d(TAG, "Begin of recycle.adapter inside action")
+            val repository = (requireActivity() as MovieRepositoryProvider).provideMovieRepository()
+            Log.d(TAG, "Begin of recycle.adapter inside action")
 
-                scope.launch {
-                    Log.d(TAG, "RABOTAET ZAEBAL")
+            scope.launch {
+                Log.d(TAG, "RABOTAET ZAEBAL")
 
-                    val movies = jsonMovieRepository.loadMovies()
+                val movies = repository.loadMovies()
 
 
-                    bindMovies(movies)
+                bindMovies(movies)
 
-                }
             }
         }
     }

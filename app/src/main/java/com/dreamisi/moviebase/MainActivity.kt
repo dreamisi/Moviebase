@@ -2,9 +2,13 @@ package com.dreamisi.moviebase
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.android.academy.fundamentals.homework.data.JsonMovieRepository
+import com.android.academy.fundamentals.homework.data.MovieRepository
+import com.dreamisi.moviebase.data.MovieRepositoryProvider
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MovieRepositoryProvider {
+    private val jsonMovieRepository = JsonMovieRepository(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,18 +23,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onFilmCardClicked(movieId: Int) {
-        val fragment = when (movieId) {
-            1 -> MoviesDetailsFragment()
-            else -> null
-        }
-        fragment?.apply {
-            supportFragmentManager
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.main_container, this)
-                .commit()
-        }
+        supportFragmentManager.beginTransaction()
+            .add(R.id.main_container, MoviesDetailsFragment.create(movieId)).addToBackStack(null)
+            .commit()
     }
+
+    override fun provideMovieRepository(): MovieRepository = jsonMovieRepository
 
 
 }
