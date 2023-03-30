@@ -1,6 +1,7 @@
 package com.dreamisi.moviebase
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,18 +31,25 @@ class ActorsListAdapter(context: Context) :
     override fun getItemCount(): Int = actors.size
 
     fun bindActors(newActors: List<Actor>) {
+        Log.d(TAG, "binding..............................")
         actors = newActors
     }
 
     class ActorListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private val TAG = "ActorViewHolder"
         private val actorImage: ImageView = itemView.findViewById(R.id.actor_ph)
         private val actorName: TextView = itemView.findViewById(R.id.actor_name)
 
         fun onBind(actor: Actor) {
-            Glide.with(itemView).load(actor.imageUrl).into(actorImage)
+            Log.d(TAG, "OnBind..................")
             actorName.text = actor.name
+            Log.d(TAG, "LoadImage..................")
+            Glide.with(itemView).load(actor.imageUrl).into(actorImage)
+
         }
     }
+
+    private val TAG = "ActorAdapter"
 
 }
