@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals.homework.data
+package com.dreamisi.moviebase.data
 
 import android.content.Context
 import com.dreamisi.moviebase.data.models.Actor

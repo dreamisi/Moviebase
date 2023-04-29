@@ -1,4 +1,4 @@
-package com.dreamisi.moviebase
+package com.dreamisi.moviebase.movieList
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,18 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dreamisi.moviebase.R
 import com.dreamisi.moviebase.data.models.Movie
 
 class MoviesListAdapter(
     context: Context,
     private val onClick: (movieId: Int) -> Unit
 ) :
-    RecyclerView.Adapter<MoviesListAdapter.MoviesListViewHolder>() {
+    ListAdapter<Movie, MoviesListAdapter.MoviesListViewHolder>(MoviesListCallBack()) {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var movies = listOf<Movie>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesListViewHolder {
@@ -28,13 +30,7 @@ class MoviesListAdapter(
     }
 
     override fun onBindViewHolder(holder: MoviesListViewHolder, position: Int) {
-        holder.onBind(movies[position])
-    }
-
-    override fun getItemCount(): Int = movies.size
-
-    fun bindMovies(newMovies: List<Movie>) {
-        movies = newMovies
+        holder.onBind(getItem(position))
     }
 
     class MoviesListViewHolder(
@@ -47,32 +43,31 @@ class MoviesListAdapter(
         private val favorite: ImageView = itemView.findViewById(R.id.favorite)
         private val genre: TextView = itemView.findViewById(R.id.film_genre)
         private val reviews: TextView = itemView.findViewById(R.id.reviews_movies_list)
-        private val pg_text: TextView = itemView.findViewById(R.id.pg_text)
-        private val rating_1_st: ImageView = itemView.findViewById(R.id.first_star_movies_list)
-        private val rating_2_st: ImageView = itemView.findViewById(R.id.second_star_movies_list)
-        private val rating_3_st: ImageView = itemView.findViewById(R.id.third_star_movies_list)
-        private val rating_4_st: ImageView = itemView.findViewById(R.id.fourth_star_movies_list)
-        private val rating_5_st: ImageView = itemView.findViewById(R.id.fifth_star_movies_list)
+        private val pgText: TextView = itemView.findViewById(R.id.pg_text)
+        private val rating1St: ImageView = itemView.findViewById(R.id.first_star_movies_list)
+        private val rating2St: ImageView = itemView.findViewById(R.id.second_star_movies_list)
+        private val rating3St: ImageView = itemView.findViewById(R.id.third_star_movies_list)
+        private val rating4St: ImageView = itemView.findViewById(R.id.fourth_star_movies_list)
+        private val rating5St: ImageView = itemView.findViewById(R.id.fifth_star_movies_list)
 
         fun onBind(movie: Movie) {
             itemView.setOnClickListener { onClick.invoke(movie.id) }
             Glide.with(itemView).load(movie.imageUrl).into(image)
-            //image.setImageResource(movie.image)
             name.text = movie.title
-            duration.text = itemView.context.getString(R.string.MIN, movie.runningTime)
+            duration.text = itemView.context.getString(R.string.min, movie.runningTime)
             when (movie.isLiked) {
                 false -> favorite.setImageResource(R.drawable.like_not_active)
                 true -> favorite.setImageResource(R.drawable.like_active)
             }
             genre.text = movie.genres.joinToString { it.name }
             reviews.text = itemView.context.getString(R.string.reviews, movie.reviewCount)
-            pg_text.text = itemView.context.getString(R.string.pg, movie.pgAge)
+            pgText.text = itemView.context.getString(R.string.pg, movie.pgAge)
             listOf(
-                rating_1_st,
-                rating_2_st,
-                rating_3_st,
-                rating_4_st,
-                rating_5_st
+                rating1St,
+                rating2St,
+                rating3St,
+                rating4St,
+                rating5St
             ).forEachIndexed { index, imageView ->
                 val startIndex = index + 1
                 val startRes = if (startIndex <= movie.rating) {
@@ -84,6 +79,17 @@ class MoviesListAdapter(
             }
 
 
+        }
+
+    }
+
+    class MoviesListCallBack : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
         }
 
     }

@@ -1,4 +1,4 @@
-package com.dreamisi.moviebase
+package com.dreamisi.moviebase.movieDetails
 
 import android.content.Context
 import android.util.Log
@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dreamisi.moviebase.R
 import com.dreamisi.moviebase.data.models.Actor
 
 class ActorsListAdapter(context: Context) :
-    RecyclerView.Adapter<ActorsListAdapter.ActorListViewHolder>() {
+    ListAdapter<Actor, ActorsListAdapter.ActorListViewHolder>(ActorsCallback()) {
 
-    private var actors = listOf<Actor>()
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorListViewHolder {
@@ -24,20 +26,12 @@ class ActorsListAdapter(context: Context) :
     }
 
     override fun onBindViewHolder(holder: ActorListViewHolder, position: Int) {
-        holder.onBind(actors[position])
+        holder.onBind(getItem(position))
 
-    }
-
-    override fun getItemCount(): Int = actors.size
-
-    fun bindActors(newActors: List<Actor>) {
-        Log.d(TAG, "binding..............................")
-        actors = newActors
     }
 
     class ActorListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val TAG = "ActorViewHolder"
         private val actorImage: ImageView = itemView.findViewById(R.id.actor_ph)
         private val actorName: TextView = itemView.findViewById(R.id.actor_name)
 
@@ -48,8 +42,25 @@ class ActorsListAdapter(context: Context) :
             Glide.with(itemView).load(actor.imageUrl).into(actorImage)
 
         }
+
+        companion object {
+            private const val TAG = "ActorViewHolder"
+
+        }
     }
 
-    private val TAG = "ActorAdapter"
+    class ActorsCallback : DiffUtil.ItemCallback<Actor>() {
+        override fun areItemsTheSame(oldItem: Actor, newItem: Actor): Boolean =
+            oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: Actor, newItem: Actor): Boolean =
+            oldItem == newItem
+
+    }
+
+    companion object {
+        private const val TAG = "ActorAdapter"
+
+    }
 
 }

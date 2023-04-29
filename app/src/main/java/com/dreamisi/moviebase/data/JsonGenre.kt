@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals.homework.data
+package com.dreamisi.moviebase.data
 
 import kotlinx.serialization.Serializable
 

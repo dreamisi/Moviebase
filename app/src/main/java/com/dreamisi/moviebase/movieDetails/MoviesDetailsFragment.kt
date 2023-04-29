@@ -1,4 +1,4 @@
-package com.dreamisi.moviebase
+package com.dreamisi.moviebase.movieDetails
 
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dreamisi.moviebase.R
 import com.dreamisi.moviebase.data.MovieRepositoryProvider
 import com.dreamisi.moviebase.data.models.Movie
 import kotlinx.coroutines.CoroutineScope
@@ -24,22 +25,19 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movieID = arguments?.getSerializable(MOVIE_ID) as Int? ?: return
+        val movieID = arguments?.getInt(MOVIE_ID) ?: error("Wrong type of MOVIE_ID")
         recycler = view.findViewById(R.id.actor_cards)
         recycler?.adapter = ActorsListAdapter(requireContext())
         recycler?.layoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
         scope.launch {
-            val repository =
-                (requireActivity() as MovieRepositoryProvider).provideMovieRepository()
+            val application = requireActivity().application as MovieRepositoryProvider
+            val repository = application.provideMovieRepository()
             val movie = repository.loadMovie(movieID)
             if (movie != null) {
                 updateData(view, movie)
             }
 
-
         }
-
-
     }
 
     private fun updateData(view: View, movie: Movie) {
@@ -69,16 +67,16 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
         }
 
         val adapter = view.findViewById<RecyclerView>(R.id.actor_cards).adapter as ActorsListAdapter
-        adapter.apply {
+        adapter.run {
             Log.d(TAG, "ADAPTER BINDING.......................")
-            bindActors(movie.actors)
+            submitList(movie.actors)
         }
-
 
     }
 
     companion object {
         private const val MOVIE_ID = "movie_id"
+        private const val TAG = "movieDetails"
 
         fun create(movieId: Int) = MoviesDetailsFragment().also {
             val arg = bundleOf(
@@ -87,6 +85,4 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
             it.arguments = arg
         }
     }
-
-    private val TAG = "MovieDetails"
 }
