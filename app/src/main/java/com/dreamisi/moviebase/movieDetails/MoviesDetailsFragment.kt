@@ -67,10 +67,8 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
         }
 
         val adapter = view.findViewById<RecyclerView>(R.id.actor_cards).adapter as ActorsListAdapter
-        adapter.run {
-            Log.d(TAG, "ADAPTER BINDING.......................")
-            submitList(movie.actors)
-        }
+        adapter.submitList(movie.actors)
+        Log.d(TAG, "ADAPTER BINDING.......................")
 
     }
 

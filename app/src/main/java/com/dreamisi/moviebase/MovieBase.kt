@@ -6,7 +6,9 @@ import com.dreamisi.moviebase.data.MovieRepository
 import com.dreamisi.moviebase.data.MovieRepositoryProvider
 
 class MovieBase : Application(), MovieRepositoryProvider {
+
     private var movieRepository: JsonMovieRepository? = null
+
     override fun onCreate() {
         super.onCreate()
         movieRepository = JsonMovieRepository(this)

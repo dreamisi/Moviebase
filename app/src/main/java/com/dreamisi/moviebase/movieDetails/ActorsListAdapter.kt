@@ -57,10 +57,4 @@ class ActorsListAdapter(context: Context) :
             oldItem == newItem
 
     }
-
-    companion object {
-        private const val TAG = "ActorAdapter"
-
-    }
-
 }

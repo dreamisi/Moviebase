@@ -38,11 +38,8 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
             val repository = application.provideMovieRepository()
 
             scope.launch {
-
                 val movies = repository.loadMovies()
                 submitList(movies)
-
-
             }
         }
     }
