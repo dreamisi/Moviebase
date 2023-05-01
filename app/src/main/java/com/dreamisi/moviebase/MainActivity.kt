@@ -2,6 +2,8 @@ package com.dreamisi.moviebase
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.dreamisi.moviebase.movieDetails.MoviesDetailsFragment
+import com.dreamisi.moviebase.movieList.MoviesListFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,17 +21,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onFilmCardClicked(movieId: Int) {
-        val fragment = when (movieId) {
-            1 -> MoviesDetailsFragment()
-            else -> null
-        }
-        fragment?.apply {
-            supportFragmentManager
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.main_container, this)
-                .commit()
-        }
+        supportFragmentManager.beginTransaction()
+            .add(R.id.main_container, MoviesDetailsFragment.create(movieId))
+            .addToBackStack(null)
+            .commit()
     }
 
 

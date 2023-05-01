@@ -2,12 +2,15 @@ package com.dreamisi.moviebase.data.models
 
 data class Movie(
     val id: Int,
-    val name: String,
-    val duration: Int,
-    val reviews: String,
-    val genre: String,
+    val title: String,
+    val storyLine: String,
+    val imageUrl: String,
+    val detailImageUrl: String,
     val rating: Int,
-    val favorite: Boolean,
-    val pg: Int,
-    val image: Int
+    val reviewCount: Int,
+    val pgAge: Int,
+    val runningTime: Int,
+    val genres: List<Genre>,
+    val actors: List<Actor>,
+    val isLiked: Boolean
 )

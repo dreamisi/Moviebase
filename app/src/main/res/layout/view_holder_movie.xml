@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/movie_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="248dp"
             android:foreground="@drawable/mask_movies_list_image"
             android:scaleType="centerCrop"
             android:src="@drawable/movie"
@@ -40,6 +40,19 @@
             app:layout_constraintStart_toStartOf="@id/movie_card_layout"
             app:layout_constraintTop_toTopOf="@id/movie_card_layout"
             tools:ignore="contentDescription" />
+
+        <TextView
+            android:id="@+id/pg_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constrainedWidth="@id/pg"
+            app:layout_constraintBottom_toBottomOf="@id/pg"
+            app:layout_constraintEnd_toEndOf="@id/pg"
+            app:layout_constraintStart_toStartOf="@id/pg"
+            app:layout_constraintTop_toTopOf="@id/pg" />
 
         <ImageView
             android:id="@+id/favorite"
@@ -158,6 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="0dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/film_mins"
             android:textColor="@color/film_mins"
             android:textSize="8sp"
