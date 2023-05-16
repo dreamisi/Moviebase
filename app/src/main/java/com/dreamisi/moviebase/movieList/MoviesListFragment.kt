@@ -14,10 +14,11 @@ import com.dreamisi.moviebase.data.models.Movie
 class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
 
     private var recycler: RecyclerView? = null
+    private lateinit var viewModel: MoviesListViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val viewModel = MoviesListViewModel(requireActivity().application)
+        viewModel = MoviesListViewModel(requireActivity().application)
 
         super.onViewCreated(view, savedInstanceState)
         recycler = view.findViewById(R.id.movies_cards)
