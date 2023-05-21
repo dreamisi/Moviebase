@@ -1,23 +1,30 @@
 package com.dreamisi.moviebase.movieList
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dreamisi.moviebase.data.MovieRepositoryProvider
+import com.dreamisi.moviebase.data.MovieRepository
 import com.dreamisi.moviebase.data.models.Movie
 import kotlinx.coroutines.launch
 
-class MoviesListViewModel(application: Application) : AndroidViewModel(application) {
+class MoviesListViewModel(
 
-    private val _mutableRepository = MutableLiveData<List<Movie>>()
-    val repository = _mutableRepository
+    private val myRepository: MovieRepository,
 
-    fun updateData() {
+    ) : ViewModel() {
+
+    private val _moviesLiveData = MutableLiveData<List<Movie>>()
+    val repository: LiveData<List<Movie>> = _moviesLiveData
+
+    init {
+        updateData()
+    }
+
+    private fun updateData() {
         viewModelScope.launch {
-            val application = getApplication<Application>() as MovieRepositoryProvider
-            val repository = application.provideMovieRepository()
-            _mutableRepository.value = repository.loadMovies()
+            val repository = myRepository
+            _moviesLiveData.value = repository.loadMovies()
         }
     }
 }
