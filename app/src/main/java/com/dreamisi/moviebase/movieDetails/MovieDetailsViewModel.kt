@@ -1,4 +1,4 @@
-package com.dreamisi.moviebase.movieList
+package com.dreamisi.moviebase.movieDetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,12 +8,13 @@ import com.dreamisi.moviebase.data.MovieRepository
 import com.dreamisi.moviebase.data.models.Movie
 import kotlinx.coroutines.launch
 
-class MoviesListViewModel(
-    private val myRepository: MovieRepository
-    ) : ViewModel() {
+class MovieDetailsViewModel(
+    private val myRepository: MovieRepository,
+    private val movieID: Int,
+) : ViewModel() {
 
-    private val _moviesLiveData = MutableLiveData<List<Movie>>()
-    val moviesLiveData: LiveData<List<Movie>> = _moviesLiveData
+    private val _movieDetailsLiveData = MutableLiveData<Movie>()
+    val movieDetailsLiveData: LiveData<Movie> = _movieDetailsLiveData
 
     init {
         updateData()
@@ -21,7 +22,7 @@ class MoviesListViewModel(
 
     private fun updateData() {
         viewModelScope.launch {
-            _moviesLiveData.value = myRepository.loadMovies()
+            _movieDetailsLiveData.value = myRepository.loadMovie(movieId = movieID)
         }
     }
 }

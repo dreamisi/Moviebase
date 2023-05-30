@@ -25,7 +25,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
             requireContext(),
             onClick = { movieId: Int -> onFilmCardClicked(movieId) })
         recycler?.layoutManager = GridLayoutManager(requireContext(), 2)
-        viewModel.repository.observe(this.viewLifecycleOwner, this::updateData)
+        viewModel.moviesLiveData.observe(this.viewLifecycleOwner, this::updateData)
     }
 
     private fun updateData(movies: List<Movie>) {

@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     fun onFilmCardClicked(movieId: Int) {
         supportFragmentManager.beginTransaction()
-            .add(R.id.main_container, MoviesDetailsFragment.create(movieId))
+            .replace(R.id.main_container, MoviesDetailsFragment.create(movieId))
             .addToBackStack(null)
             .commit()
     }
