@@ -29,27 +29,27 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
         recycler = view.findViewById(R.id.actor_cards)
         recycler?.adapter = ActorsListAdapter(requireContext())
         recycler?.layoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
-        viewModel.movieDetailsLiveData.observe(this.viewLifecycleOwner, this::updateData)
+        viewModel.movieDetailsLiveData.observe(this.viewLifecycleOwner, { updateData(it, view) })
     }
 
-    private fun updateData(movie: Movie) {
-        val cover = view?.findViewById<ImageView>(R.id.movie_cover)
+    private fun updateData(movie: Movie, view: View) {
+        val cover = view.findViewById<ImageView>(R.id.movie_cover)
         if (cover != null) {
             Glide.with(this).load(movie.detailImageUrl).into(cover)
         }
-        view?.findViewById<TextView>(R.id.age_limit)?.text =
+        view.findViewById<TextView>(R.id.age_limit)?.text =
             context?.getString(R.string.pg, movie.pgAge)
-        view?.findViewById<TextView>(R.id.film_name)?.text = movie.title
-        view?.findViewById<TextView>(R.id.film_genre)?.text = movie.genres.joinToString { it.name }
-        view?.findViewById<TextView>(R.id.reviews)?.text =
+        view.findViewById<TextView>(R.id.film_name)?.text = movie.title
+        view.findViewById<TextView>(R.id.film_genre)?.text = movie.genres.joinToString { it.name }
+        view.findViewById<TextView>(R.id.reviews)?.text =
             context?.getString(R.string.reviews, movie.reviewCount)
-        view?.findViewById<TextView>(R.id.storyline_content)?.text = movie.storyLine
+        view.findViewById<TextView>(R.id.storyline_content)?.text = movie.storyLine
         listOf(
-            view?.findViewById(R.id.first_star),
-            view?.findViewById(R.id.second_star),
-            view?.findViewById(R.id.third_star),
-            view?.findViewById(R.id.fourth_star),
-            view?.findViewById<ImageView>(R.id.fifth_star)
+            view.findViewById(R.id.first_star),
+            view.findViewById(R.id.second_star),
+            view.findViewById(R.id.third_star),
+            view.findViewById(R.id.fourth_star),
+            view.findViewById<ImageView>(R.id.fifth_star)
         ).forEachIndexed { index, imageView ->
             val startIndex = index + 1
             val startRes = if (startIndex <= movie.rating) {
@@ -61,7 +61,7 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
         }
 
         val adapter =
-            view?.findViewById<RecyclerView>(R.id.actor_cards)?.adapter as ActorsListAdapter
+            view.findViewById<RecyclerView>(R.id.actor_cards)?.adapter as ActorsListAdapter
         adapter.submitList(movie.actors)
         Log.d(TAG, "ADAPTER BINDING.......................")
 
