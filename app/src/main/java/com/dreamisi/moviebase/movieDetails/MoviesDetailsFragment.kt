@@ -7,42 +7,36 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dreamisi.moviebase.R
-import com.dreamisi.moviebase.data.MovieRepositoryProvider
 import com.dreamisi.moviebase.data.models.Movie
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
 
     private var recycler: RecyclerView? = null
-    private val scope = CoroutineScope(Dispatchers.Main)
+    private val viewModel: MovieDetailsViewModel by viewModels {
+        MovieDetailsViewModelFactory(
+            arguments?.getInt(MOVIE_ID) ?: error("Empty ID of Movie")
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movieID = arguments?.getInt(MOVIE_ID) ?: error("Wrong type of MOVIE_ID")
         recycler = view.findViewById(R.id.actor_cards)
         recycler?.adapter = ActorsListAdapter(requireContext())
         recycler?.layoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
-        scope.launch {
-            val application = requireActivity().application as MovieRepositoryProvider
-            val repository = application.provideMovieRepository()
-            val movie = repository.loadMovie(movieID)
-            if (movie != null) {
-                updateData(view, movie)
-            }
-
-        }
+        viewModel.movieDetailsLiveData.observe(this.viewLifecycleOwner, { updateData(it, view) })
     }
 
-    private fun updateData(view: View, movie: Movie) {
+    private fun updateData(movie: Movie, view: View) {
         val cover = view.findViewById<ImageView>(R.id.movie_cover)
-        Glide.with(this).load(movie.detailImageUrl).into(cover)
+        if (cover != null) {
+            Glide.with(this).load(movie.detailImageUrl).into(cover)
+        }
         view.findViewById<TextView>(R.id.age_limit)?.text =
             context?.getString(R.string.pg, movie.pgAge)
         view.findViewById<TextView>(R.id.film_name)?.text = movie.title
@@ -66,7 +60,8 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
             imageView?.setImageResource(startRes)
         }
 
-        val adapter = view.findViewById<RecyclerView>(R.id.actor_cards).adapter as ActorsListAdapter
+        val adapter =
+            view.findViewById<RecyclerView>(R.id.actor_cards)?.adapter as ActorsListAdapter
         adapter.submitList(movie.actors)
         Log.d(TAG, "ADAPTER BINDING.......................")
 
