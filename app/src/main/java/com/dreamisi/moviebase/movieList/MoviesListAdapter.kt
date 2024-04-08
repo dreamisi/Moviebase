@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dreamisi.moviebase.R
 import com.dreamisi.moviebase.data.MovieResponse
+import com.dreamisi.moviebase.data.NetworkModule
+
 class MoviesListAdapter(
     context: Context,
     private val onClick: (movieId: Int) -> Unit
@@ -52,17 +54,18 @@ class MoviesListAdapter(
 
         fun onBind(movieResponse: MovieResponse) {
             itemView.setOnClickListener { onClick.invoke(movieResponse.id) }
-            Glide.with(itemView).load(movieResponse.posterPath).into(image)
+            Glide.with(itemView).load("https://image.tmdb.org/t/p/w500/" + movieResponse.posterPath).into(image)
             name.text = movieResponse.title
             duration.isVisible = false // temporarily non-use date for test
-           // duration.text = itemView.context.getString(R.string.min, movie.runningTime)
+            // duration.text = itemView.context.getString(R.string.min, movie.runningTime)
             when (movieResponse.isLiked) {
                 false -> favorite.setImageResource(R.drawable.like_not_active)
                 true -> favorite.setImageResource(R.drawable.like_active)
             }
             //genre.text = movieResponse.genres.joinToString { it.name }
             reviews.text = itemView.context.getString(R.string.reviews, movieResponse.voteCount)
-            pgText.text = itemView.context.getString(R.string.pg, if (movieResponse.adult) 16 else 0)
+            pgText.text =
+                itemView.context.getString(R.string.pg, if (movieResponse.adult) 16 else 0)
             listOf(
                 rating1St,
                 rating2St,

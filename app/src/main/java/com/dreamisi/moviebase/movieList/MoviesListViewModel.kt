@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.dreamisi.moviebase.data.MovieRepository
 import com.dreamisi.moviebase.data.MovieResponse
 import com.dreamisi.moviebase.data.NetworkModule
-import com.dreamisi.moviebase.data.models.Movie
 import kotlinx.coroutines.launch
 
 class MoviesListViewModel(
@@ -27,7 +26,7 @@ class MoviesListViewModel(
     private fun updateData() {
         viewModelScope.launch {
            // _moviesLiveData.value = myRepository.loadMovies()
-            _moviesLiveData.value = NetworkModule.theMovieDataBaseAPI.getPopularMoviesList()
+            _moviesLiveData.value = NetworkModule.theMovieDataBaseAPI.getPopularMoviesList().results
         }
     }
 }
