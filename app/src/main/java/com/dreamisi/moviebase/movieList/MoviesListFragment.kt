@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dreamisi.moviebase.MainActivity
 import com.dreamisi.moviebase.R
-import com.dreamisi.moviebase.data.MovieResponse
+import com.dreamisi.moviebase.data.models.Movie
 
 
 class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
@@ -28,7 +28,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
         viewModel.moviesLiveData.observe(this.viewLifecycleOwner, this::updateData)
     }
 
-    private fun updateData(movies: List<MovieResponse>) {
+    private fun updateData(movies: List<Movie>) {
         (recycler?.adapter as? MoviesListAdapter)?.submitList(movies)
     }
 

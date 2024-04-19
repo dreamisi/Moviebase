@@ -1,11 +1,11 @@
-package com.dreamisi.moviebase.data
+package com.dreamisi.moviebase.data.JsonModels
 
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MovieResponse(
+data class JsonMoviesListCard(
     @SerialName("adult")
     val adult: Boolean,
     @SerialName("backdrop_path")

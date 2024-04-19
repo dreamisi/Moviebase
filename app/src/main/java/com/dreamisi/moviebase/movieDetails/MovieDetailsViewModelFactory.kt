@@ -15,7 +15,7 @@ class MovieDetailsViewModelFactory(private val movieID: Int) : ViewModelProvider
             checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
 
         return MovieDetailsViewModel(
-            (application as MovieBase).provideMovieRepository(),
+            (application as MovieBase).provideRepository(),
             movieID
         ) as T
 

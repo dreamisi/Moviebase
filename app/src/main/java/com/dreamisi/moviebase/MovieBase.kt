@@ -1,20 +1,18 @@
 package com.dreamisi.moviebase
 
 import android.app.Application
-import com.dreamisi.moviebase.data.JsonMovieRepository
-import com.dreamisi.moviebase.data.MovieRepository
-import com.dreamisi.moviebase.data.MovieRepositoryProvider
+import com.dreamisi.moviebase.data.*
 
-class MovieBase : Application(), MovieRepositoryProvider {
+class MovieBase : Application(), RepositoryProvider {
 
-    private var movieRepository: JsonMovieRepository? = null
+    private var repository: Repository? = null
 
     override fun onCreate() {
         super.onCreate()
-        movieRepository = JsonMovieRepository(this)
+        repository = Repository()
 
     }
 
-    override fun provideMovieRepository(): MovieRepository =
-        movieRepository ?: error("empty Movie Repository")
+    override fun provideRepository(): Repository =
+        repository ?: error("empty Repository")
 }

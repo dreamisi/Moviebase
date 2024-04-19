@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dreamisi.moviebase.R
-import com.dreamisi.moviebase.data.MovieResponse
-import com.dreamisi.moviebase.data.NetworkModule
+import com.dreamisi.moviebase.data.models.Movie
 
 class MoviesListAdapter(
     context: Context,
     private val onClick: (movieId: Int) -> Unit
 ) :
-    ListAdapter<MovieResponse, MoviesListAdapter.MoviesListViewHolder>(MoviesListCallBack()) {
+    ListAdapter<Movie, MoviesListAdapter.MoviesListViewHolder>(MoviesListCallBack()) {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -52,20 +51,20 @@ class MoviesListAdapter(
         private val rating4St: ImageView = itemView.findViewById(R.id.fourth_star_movies_list)
         private val rating5St: ImageView = itemView.findViewById(R.id.fifth_star_movies_list)
 
-        fun onBind(movieResponse: MovieResponse) {
-            itemView.setOnClickListener { onClick.invoke(movieResponse.id) }
-            Glide.with(itemView).load("https://image.tmdb.org/t/p/w500/" + movieResponse.posterPath).into(image)
-            name.text = movieResponse.title
+        fun onBind(movie: Movie) {
+            itemView.setOnClickListener { onClick.invoke(movie.id) }
+            Glide.with(itemView).load("https://image.tmdb.org/t/p/w500/" + movie.imageUrl).into(image)
+            name.text = movie.title
             duration.isVisible = false // temporarily non-use date for test
             // duration.text = itemView.context.getString(R.string.min, movie.runningTime)
-            when (movieResponse.isLiked) {
+            when (movie.isLiked) {
                 false -> favorite.setImageResource(R.drawable.like_not_active)
                 true -> favorite.setImageResource(R.drawable.like_active)
             }
-            //genre.text = movieResponse.genres.joinToString { it.name }
-            reviews.text = itemView.context.getString(R.string.reviews, movieResponse.voteCount)
+            genre.text = movie.genres.joinToString { it.name }
+            reviews.text = itemView.context.getString(R.string.reviews, movie.reviewCount)
             pgText.text =
-                itemView.context.getString(R.string.pg, if (movieResponse.adult) 16 else 0)
+                itemView.context.getString(R.string.pg, movie.pgAge)
             listOf(
                 rating1St,
                 rating2St,
@@ -74,7 +73,7 @@ class MoviesListAdapter(
                 rating5St
             ).forEachIndexed { index, imageView ->
                 val startIndex = index + 1
-                val startRes = if (startIndex <= movieResponse.voteAverage) {
+                val startRes = if (startIndex <= movie.rating) {
                     R.drawable.red_star_movies_list
                 } else {
                     R.drawable.gray_star_movies_list
@@ -87,12 +86,12 @@ class MoviesListAdapter(
 
     }
 
-    class MoviesListCallBack : DiffUtil.ItemCallback<MovieResponse>() {
-        override fun areItemsTheSame(oldItem: MovieResponse, newItem: MovieResponse): Boolean {
+    class MoviesListCallBack : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: MovieResponse, newItem: MovieResponse): Boolean {
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem == newItem
         }
 

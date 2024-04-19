@@ -15,7 +15,7 @@ class MoviesListViewModelFactory : ViewModelProvider.Factory {
             checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
 
         return MoviesListViewModel(
-            (application as MovieBase).provideMovieRepository()
+            (application as MovieBase).provideRepository()
         ) as T
 
     }
