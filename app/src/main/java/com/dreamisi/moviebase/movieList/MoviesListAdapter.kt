@@ -53,7 +53,7 @@ class MoviesListAdapter(
 
         fun onBind(movie: Movie) {
             itemView.setOnClickListener { onClick.invoke(movie.id) }
-            Glide.with(itemView).load("https://image.tmdb.org/t/p/w500/" + movie.imageUrl).into(image)
+            Glide.with(itemView).load( movie.imageUrl).into(image)
             name.text = movie.title
             duration.isVisible = false // temporarily non-use date for test
             // duration.text = itemView.context.getString(R.string.min, movie.runningTime)

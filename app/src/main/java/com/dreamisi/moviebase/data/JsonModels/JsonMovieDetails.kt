@@ -10,8 +10,6 @@ data class JsonMovieDetails(
     val adult: Boolean,
     @SerialName("backdrop_path")
     val backdropPath: String,
-    /*@SerialName("belongs_to_collection")
-    val belongsToCollection: Any,*/
     @SerialName("budget")
     val budget: Int,
     @SerialName("genres")
@@ -34,8 +32,6 @@ data class JsonMovieDetails(
     val popularity: Double,
     @SerialName("poster_path")
     val posterPath: String,
-    /*@SerialName("production_companies")
-    val productionCompanies: List<Any>,*/
     @SerialName("production_countries")
     val productionCountries: List<ProductionCountry>,
     @SerialName("release_date")

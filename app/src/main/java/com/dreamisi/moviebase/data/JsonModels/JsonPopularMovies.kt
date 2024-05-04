@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class JsonPopularMoviesResponse(
+data class JsonPopularMovies(
     @SerialName("page")
     val page: Int,
     @SerialName("results")

@@ -3,7 +3,7 @@ package com.dreamisi.moviebase.movieDetails
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.dreamisi.moviebase.MovieBase
+import com.dreamisi.moviebase.MovieBaseApplication
 
 class MovieDetailsViewModelFactory(private val movieID: Int) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
@@ -15,7 +15,7 @@ class MovieDetailsViewModelFactory(private val movieID: Int) : ViewModelProvider
             checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
 
         return MovieDetailsViewModel(
-            (application as MovieBase).provideRepository(),
+            (application as MovieBaseApplication).provideRepository(),
             movieID
         ) as T
 

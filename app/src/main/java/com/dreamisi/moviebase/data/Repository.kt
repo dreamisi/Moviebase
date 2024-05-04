@@ -5,38 +5,38 @@ import com.dreamisi.moviebase.data.JsonModels.JsonMovieDetails
 import com.dreamisi.moviebase.data.models.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.dreamisi.moviebase.data.JsonModels.JsonPopularMoviesResponse
+import com.dreamisi.moviebase.data.JsonModels.JsonPopularMovies
 import com.dreamisi.moviebase.data.models.Genre
 import com.dreamisi.moviebase.data.models.MovieDetails
+import com.dreamisi.moviebase.data.services.TheMovieDataBaseAPI
 
-class Repository {
+class Repository(private val api: TheMovieDataBaseAPI) {
 
-    private var moviesList: List<Movie>? = null
-    private var genreList: List<Genre>? = null
-    private val networkModule = NetworkModule
-    private var movieDetails: MovieDetails? = null
+    private var cachedMoviesList: List<Movie>? = null
+    private var cachedGenreList: List<Genre>? = null
+    private var cachedMovieDetails: MovieDetails? = null
 
 
     suspend fun getMoviesList(): List<Movie> = withContext(Dispatchers.IO) {
-        val cachedGenre = genreList
-        if (cachedGenre == null) {
-            val genreFromDB = loadGenresFromDB()
-            genreList = genreFromDB
-        }
-        val cachedMovies = moviesList
-        if (cachedMovies != null) {
-            cachedMovies
+        val cachedGenre = cachedGenreList ?: loadGenres()
+        cachedGenreList = cachedGenre
+        val cachedMovies = cachedMoviesList ?: loadMoviesFromDB(cachedGenreList ?: emptyList())
+        cachedMoviesList = cachedMovies
+        cachedMovies
+    }
+
+    suspend fun getMovieDetails(id: Int) = withContext(Dispatchers.IO) {
+        val cachedMovie = cachedMovieDetails
+        if (cachedMovie != null && cachedMovie.id == id) {
+            cachedMovie
         } else {
-            val moviesFromDB = loadMoviesFromDB(genreList ?: emptyList())
-            moviesList = moviesFromDB
-            moviesFromDB
+            val movieDetailsFromDB = loadMovieDetails(id = id)
+            cachedMovieDetails = movieDetailsFromDB
+            movieDetailsFromDB
         }
     }
 
-    private suspend fun loadGenresFromDB(): List<Genre> {
-        val data = networkModule.theMovieDataBaseAPI.getGenreList()
-        return parseGenre(data)
-    }
+    private suspend fun loadGenres(): List<Genre> = parseGenre(api.getGenreList())
 
     private fun parseGenre(jsonGenreList: JsonGenreList): List<Genre> {
         return jsonGenreList.genres.map { genre ->
@@ -47,21 +47,19 @@ class Repository {
         }
     }
 
-    private suspend fun loadMoviesFromDB(genreList: List<Genre>): List<Movie> {
-        val data = networkModule.theMovieDataBaseAPI.getPopularMoviesList()
-        return parseMovie(data, genreList)
-    }
+    private suspend fun loadMoviesFromDB(genreList: List<Genre>): List<Movie> =
+        parseMovie(api.getPopularMoviesList(), genreList)
 
     private fun parseMovie(
-        jsonPopularMoviesResponse: JsonPopularMoviesResponse,
+        jsonPopularMovies: JsonPopularMovies,
         genreList: List<Genre>
     ): List<Movie> {
-        return jsonPopularMoviesResponse.results.map { jsonMovie ->
+        return jsonPopularMovies.results.map { jsonMovie ->
             Movie(
                 id = jsonMovie.id,
                 title = jsonMovie.title,
                 storyLine = jsonMovie.overview,
-                imageUrl = jsonMovie.posterPath,
+                imageUrl = imageUrlHead + jsonMovie.posterPath,
                 genres = jsonMovie.genreIds.map { id ->
                     Genre(
                         id = id,
@@ -76,27 +74,15 @@ class Repository {
         }
     }
 
-    suspend fun getMovieDetails(id: Int) = withContext(Dispatchers.IO) {
-        val cachedMovie = movieDetails
-        if (cachedMovie != null && cachedMovie.id == id) {
-            cachedMovie
-        } else {
-            val movieDetailsFromDB = loadMovieDetails(id = id)
-            movieDetails = movieDetailsFromDB
-            movieDetailsFromDB
-        }
-    }
 
-    private suspend fun loadMovieDetails(id: Int): MovieDetails {
-        val data = networkModule.theMovieDataBaseAPI.getMovieDetails(id = id)
-        return parseMovieDetails(data)
-    }
+    private suspend fun loadMovieDetails(id: Int): MovieDetails =
+        parseMovieDetails(api.getMovieDetails(id = id))
 
     private fun parseMovieDetails(jsonMovieDetails: JsonMovieDetails): MovieDetails {
         return MovieDetails(
             id = jsonMovieDetails.id,
             actors = emptyList(),
-            detailImageUrl = jsonMovieDetails.posterPath,
+            detailImageUrl = imageUrlHead + jsonMovieDetails.posterPath,
             genres = jsonMovieDetails.genres.map { jsonGenre ->
                 Genre(
                     id = jsonGenre.id,
@@ -112,6 +98,10 @@ class Repository {
             storyLine = jsonMovieDetails.overview,
             runningTime = jsonMovieDetails.runtime
         )
+    }
+
+    companion object {
+        private const val imageUrlHead = "https://image.tmdb.org/t/p/w500/"
     }
 
 }

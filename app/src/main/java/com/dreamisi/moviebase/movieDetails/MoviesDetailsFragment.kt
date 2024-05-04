@@ -29,18 +29,21 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
         recycler = view.findViewById(R.id.actor_cards)
         recycler?.adapter = ActorsListAdapter(requireContext())
         recycler?.layoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
-        viewModel.movieDetailsDetailsLiveData.observe(this.viewLifecycleOwner, { updateData(it, view) })
+        viewModel.movieDetailsDetailsLiveData.observe(
+            this.viewLifecycleOwner,
+            { updateData(it, view) })
     }
 
     private fun updateData(movieDetails: MovieDetails, view: View) {
         val cover = view.findViewById<ImageView>(R.id.movie_cover)
         if (cover != null) {
-            Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + movieDetails.detailImageUrl).into(cover)
+            Glide.with(this).load(movieDetails.detailImageUrl).into(cover)
         }
         view.findViewById<TextView>(R.id.age_limit)?.text =
             context?.getString(R.string.pg, movieDetails.pgAge)
         view.findViewById<TextView>(R.id.film_name)?.text = movieDetails.title
-        view.findViewById<TextView>(R.id.film_genre)?.text = movieDetails.genres.joinToString { it.name }
+        view.findViewById<TextView>(R.id.film_genre)?.text =
+            movieDetails.genres.joinToString { it.name }
         view.findViewById<TextView>(R.id.reviews)?.text =
             context?.getString(R.string.reviews, movieDetails.reviewCount)
         view.findViewById<TextView>(R.id.storyline_content)?.text = movieDetails.storyLine
