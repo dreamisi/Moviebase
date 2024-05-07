@@ -18,21 +18,21 @@ class Repository(private val api: TheMovieDataBaseAPI) {
 
 
     suspend fun getMoviesList(): List<Movie> = withContext(Dispatchers.IO) {
-        val cachedGenre = cachedGenreList ?: loadGenres()
-        cachedGenreList = cachedGenre
-        val cachedMovies = cachedMoviesList ?: loadMoviesFromDB(cachedGenreList ?: emptyList())
-        cachedMoviesList = cachedMovies
-        cachedMovies
+        val localGenreList = cachedGenreList ?: loadGenres()
+        cachedGenreList = localGenreList
+        val localMoviesList = cachedMoviesList ?: loadMovies(localGenreList)
+        cachedMoviesList = localMoviesList
+        localMoviesList
     }
 
     suspend fun getMovieDetails(id: Int) = withContext(Dispatchers.IO) {
-        val cachedMovie = cachedMovieDetails
-        if (cachedMovie != null && cachedMovie.id == id) {
-            cachedMovie
+        val localMovieDetails = cachedMovieDetails
+        if (localMovieDetails != null && localMovieDetails.id == id) {
+            localMovieDetails
         } else {
-            val movieDetailsFromDB = loadMovieDetails(id = id)
-            cachedMovieDetails = movieDetailsFromDB
-            movieDetailsFromDB
+            val movieDetails = loadMovieDetails(id = id)
+            cachedMovieDetails = movieDetails
+            movieDetails
         }
     }
 
@@ -47,7 +47,7 @@ class Repository(private val api: TheMovieDataBaseAPI) {
         }
     }
 
-    private suspend fun loadMoviesFromDB(genreList: List<Genre>): List<Movie> =
+    private suspend fun loadMovies(genreList: List<Genre>): List<Movie> =
         parseMovie(api.getPopularMoviesList(), genreList)
 
     private fun parseMovie(

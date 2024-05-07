@@ -4,7 +4,7 @@ import android.app.Application
 import com.dreamisi.moviebase.data.*
 import com.dreamisi.moviebase.data.services.TheMovieDataBaseAPI
 
-class MovieBaseApplication : Application(), RepositoryProvider {
+class MovieBaseApplication : Application() {
 
     private var repository: Repository? = null
     private val api: TheMovieDataBaseAPI = NetworkModule().theMovieDataBaseAPI
@@ -15,6 +15,6 @@ class MovieBaseApplication : Application(), RepositoryProvider {
 
     }
 
-    override fun provideRepository(): Repository =
+    fun provideRepository(): Repository =
         repository ?: error("empty Repository")
 }

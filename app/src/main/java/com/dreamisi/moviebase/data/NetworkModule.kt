@@ -1,5 +1,6 @@
 package com.dreamisi.moviebase.data
 
+import com.dreamisi.moviebase.BuildConfig
 import com.dreamisi.moviebase.data.services.TheMovieDataBaseAPI
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -12,6 +13,9 @@ import java.util.concurrent.TimeUnit
 
 
 class NetworkModule {
+    private val retrofit = createRetrofit()
+
+    val theMovieDataBaseAPI: TheMovieDataBaseAPI = retrofit.create()
 
     private fun createRetrofit(): Retrofit {
         val baseURL = "https://api.themoviedb.org/3/"
@@ -26,7 +30,7 @@ class NetworkModule {
             .addInterceptor { chain ->
                 val original = chain.request()
                 val requestBuilder = original.newBuilder()
-                    .header("Authorization", "Bearer ${getApiKeyTMDB()}")
+                    .header("Authorization", "Bearer ${BuildConfig.API_KEY}")
                     .method(original.method, original.body)
                 val request = requestBuilder.build()
                 chain.proceed(request)
@@ -46,8 +50,5 @@ class NetworkModule {
             .build()
     }
 
-    private val retrofit = createRetrofit()
-
-    val theMovieDataBaseAPI: TheMovieDataBaseAPI = retrofit.create()
 
 }

@@ -88,5 +88,3 @@ lint/tmp/
 desktop.ini
 gradlew
 gradlew.bat
-
-ApiKey.kt
