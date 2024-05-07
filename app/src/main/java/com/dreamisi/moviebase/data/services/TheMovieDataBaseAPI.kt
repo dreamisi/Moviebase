@@ -1,8 +1,8 @@
 package com.dreamisi.moviebase.data.services
 
-import com.dreamisi.moviebase.data.JsonModels.JsonGenreList
-import com.dreamisi.moviebase.data.JsonModels.JsonMovieDetails
-import com.dreamisi.moviebase.data.JsonModels.JsonPopularMovies
+import com.dreamisi.moviebase.data.jsonmodels.JsonGenreList
+import com.dreamisi.moviebase.data.jsonmodels.JsonMovieDetails
+import com.dreamisi.moviebase.data.jsonmodels.JsonPopularMovies
 import retrofit2.http.GET
 import retrofit2.http.Path
 

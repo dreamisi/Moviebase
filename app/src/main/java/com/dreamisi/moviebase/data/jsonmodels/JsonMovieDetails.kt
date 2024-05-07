@@ -1,4 +1,4 @@
-package com.dreamisi.moviebase.data.JsonModels
+package com.dreamisi.moviebase.data.jsonmodels
 
 
 import kotlinx.serialization.SerialName

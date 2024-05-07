@@ -1,4 +1,4 @@
-package com.dreamisi.moviebase.movieDetails
+package com.dreamisi.moviebase.moviedetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

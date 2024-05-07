@@ -1,11 +1,11 @@
 package com.dreamisi.moviebase.data
 
-import com.dreamisi.moviebase.data.JsonModels.JsonGenreList
-import com.dreamisi.moviebase.data.JsonModels.JsonMovieDetails
+import com.dreamisi.moviebase.data.jsonmodels.JsonGenreList
+import com.dreamisi.moviebase.data.jsonmodels.JsonMovieDetails
 import com.dreamisi.moviebase.data.models.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.dreamisi.moviebase.data.JsonModels.JsonPopularMovies
+import com.dreamisi.moviebase.data.jsonmodels.JsonPopularMovies
 import com.dreamisi.moviebase.data.models.Genre
 import com.dreamisi.moviebase.data.models.MovieDetails
 import com.dreamisi.moviebase.data.services.TheMovieDataBaseAPI

@@ -1,4 +1,4 @@
-package com.dreamisi.moviebase.movieList
+package com.dreamisi.moviebase.movielist
 
 
 import android.os.Bundle
