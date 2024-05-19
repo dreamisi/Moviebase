@@ -1,4 +1,4 @@
-package com.dreamisi.moviebase.movieList
+package com.dreamisi.moviebase.movielist
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -52,16 +53,18 @@ class MoviesListAdapter(
 
         fun onBind(movie: Movie) {
             itemView.setOnClickListener { onClick.invoke(movie.id) }
-            Glide.with(itemView).load(movie.imageUrl).into(image)
+            Glide.with(itemView).load( movie.imageUrl).into(image)
             name.text = movie.title
-            duration.text = itemView.context.getString(R.string.min, movie.runningTime)
+            duration.isVisible = false // temporarily non-use date for test
+            // duration.text = itemView.context.getString(R.string.min, movie.runningTime)
             when (movie.isLiked) {
                 false -> favorite.setImageResource(R.drawable.like_not_active)
                 true -> favorite.setImageResource(R.drawable.like_active)
             }
             genre.text = movie.genres.joinToString { it.name }
             reviews.text = itemView.context.getString(R.string.reviews, movie.reviewCount)
-            pgText.text = itemView.context.getString(R.string.pg, movie.pgAge)
+            pgText.text =
+                itemView.context.getString(R.string.pg, movie.pgAge)
             listOf(
                 rating1St,
                 rating2St,

@@ -1,4 +1,4 @@
-package com.dreamisi.moviebase.movieDetails
+package com.dreamisi.moviebase.moviedetails
 
 import android.os.Bundle
 import android.util.Log
@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dreamisi.moviebase.R
-import com.dreamisi.moviebase.data.models.Movie
+import com.dreamisi.moviebase.data.models.MovieDetails
 
 class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
 
     private var recycler: RecyclerView? = null
     private val viewModel: MovieDetailsViewModel by viewModels {
         MovieDetailsViewModelFactory(
-            arguments?.getInt(MOVIE_ID) ?: error("Empty ID of Movie")
+            arguments?.getInt(MOVIE_ID) ?: error("Empty ID of MovieDetails")
         )
     }
 
@@ -29,21 +29,24 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
         recycler = view.findViewById(R.id.actor_cards)
         recycler?.adapter = ActorsListAdapter(requireContext())
         recycler?.layoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
-        viewModel.movieDetailsLiveData.observe(this.viewLifecycleOwner, { updateData(it, view) })
+        viewModel.movieDetailsDetailsLiveData.observe(
+            this.viewLifecycleOwner,
+            { updateData(it, view) })
     }
 
-    private fun updateData(movie: Movie, view: View) {
+    private fun updateData(movieDetails: MovieDetails, view: View) {
         val cover = view.findViewById<ImageView>(R.id.movie_cover)
         if (cover != null) {
-            Glide.with(this).load(movie.detailImageUrl).into(cover)
+            Glide.with(this).load(movieDetails.detailImageUrl).into(cover)
         }
         view.findViewById<TextView>(R.id.age_limit)?.text =
-            context?.getString(R.string.pg, movie.pgAge)
-        view.findViewById<TextView>(R.id.film_name)?.text = movie.title
-        view.findViewById<TextView>(R.id.film_genre)?.text = movie.genres.joinToString { it.name }
+            context?.getString(R.string.pg, movieDetails.pgAge)
+        view.findViewById<TextView>(R.id.film_name)?.text = movieDetails.title
+        view.findViewById<TextView>(R.id.film_genre)?.text =
+            movieDetails.genres.joinToString { it.name }
         view.findViewById<TextView>(R.id.reviews)?.text =
-            context?.getString(R.string.reviews, movie.reviewCount)
-        view.findViewById<TextView>(R.id.storyline_content)?.text = movie.storyLine
+            context?.getString(R.string.reviews, movieDetails.reviewCount)
+        view.findViewById<TextView>(R.id.storyline_content)?.text = movieDetails.storyLine
         listOf(
             view.findViewById(R.id.first_star),
             view.findViewById(R.id.second_star),
@@ -52,7 +55,7 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
             view.findViewById<ImageView>(R.id.fifth_star)
         ).forEachIndexed { index, imageView ->
             val startIndex = index + 1
-            val startRes = if (startIndex <= movie.rating) {
+            val startRes = if (startIndex <= movieDetails.rating) {
                 R.drawable.red_star_movies_list
             } else {
                 R.drawable.gray_star_movies_list
@@ -62,7 +65,7 @@ class MoviesDetailsFragment : Fragment(R.layout.fragment_movies_details) {
 
         val adapter =
             view.findViewById<RecyclerView>(R.id.actor_cards)?.adapter as ActorsListAdapter
-        adapter.submitList(movie.actors)
+        adapter.submitList(movieDetails.actors)
         Log.d(TAG, "ADAPTER BINDING.......................")
 
     }

@@ -2,8 +2,8 @@ package com.dreamisi.moviebase
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.dreamisi.moviebase.movieDetails.MoviesDetailsFragment
-import com.dreamisi.moviebase.movieList.MoviesListFragment
+import com.dreamisi.moviebase.moviedetails.MoviesDetailsFragment
+import com.dreamisi.moviebase.movielist.MoviesListFragment
 
 
 class MainActivity : AppCompatActivity() {
